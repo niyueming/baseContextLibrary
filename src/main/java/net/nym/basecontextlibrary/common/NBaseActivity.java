@@ -19,6 +19,13 @@ import android.view.View;
 import net.nym.permissionlibrary.activity.NPermissionActivity;
 
 /**
+ * 转场动画起点
+ * ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this
+                        ,new Pair<View, String>(view.findViewById(R.id.text),"test")
+                    );
+     ActivityCompat.startActivity(Context
+     ,intent
+     ,optionsCompat.toBundle());
  * @author niyueming
  * @date 2017-03-15
  * @time 15:36

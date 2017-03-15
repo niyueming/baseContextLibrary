@@ -14,24 +14,34 @@ package net.nym.basecontextlibrary.common;
 import android.app.Application;
 import android.content.res.Resources;
 
-import net.nym.basecontextlibrary.skin.SkinManagerImpl;
-
 /**
  * @author niyueming
  * @date 2017-03-15
  * @time 15:25
  */
 
-public class NBaseApplication extends Application {
+public class NBaseApplication extends Application implements ActivityLifecycleMonitor.OnForegroundListener {
     public static NBaseApplication app;
 
     @Override
     public void onCreate() {
         super.onCreate();
         app = this;
+        registerActivityLifecycleCallbacks(new ActivityLifecycleMonitor(this));
     }
 
     public Resources getAppResources(){
         return app.getResources();
+    }
+
+    @Override
+    public void onForeground() {
+        System.out.println("前台");
+    }
+
+    @Override
+    public void onBackground() {
+        System.out.println("后台");
+
     }
 }
