@@ -11,11 +11,17 @@
 
 package net.nym.basecontextlibrary.common;
 
+import android.app.Activity;
+import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v13.app.ActivityCompat;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
+import net.nym.basecontextlibrary.Utils;
 import net.nym.permissionlibrary.activity.NPermissionActivity;
 
 /**
@@ -31,13 +37,18 @@ import net.nym.permissionlibrary.activity.NPermissionActivity;
  * @time 15:36
  */
 
-public class NBaseActivity extends NPermissionActivity {
+public abstract class NBaseActivity extends NPermissionActivity implements View.OnClickListener{
 
 
     public <T extends View> T findView(@IdRes int id) {
         View view = (T)super.findViewById(id);
         return view == null ? null : (T)view;
     }
+
+    public abstract void toast(@NonNull String text);
+    public abstract void toast(@StringRes int stringId);
+    public abstract void showIndicator();
+    public abstract void dismissIndicator();
 
     @Override
     public void onBackPressed() {
@@ -54,5 +65,37 @@ public class NBaseActivity extends NPermissionActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /********************** activity跳转 **********************************/
+    public void openActivity(Class<?> targetActivityClass) {
+        Utils.openActivity(this,targetActivityClass);
+    }
+
+    public void openActivity(Class<?> targetActivityClass,int requestCode) {
+        Utils.openActivity(this,targetActivityClass,requestCode);
+    }
+
+    public void openActivity(Class<?> targetActivityClass, Bundle bundle, Bundle options) {
+        Utils.openActivity(this,targetActivityClass,bundle,options);
+    }
+
+    public void openActivity(Class<?> targetActivityClass, Bundle bundle,int requestCode,Bundle options) {
+        Utils.openActivity(this,targetActivityClass,bundle,requestCode,options);
+    }
+
+    public void openActivityAndCloseThis(Class<?> targetActivityClass) {
+        Utils.openActivityAndCloseThis(this,targetActivityClass);
+    }
+
+    public void openActivityAndCloseThis(Class<?> targetActivityClass, Bundle bundle) {
+        Utils.openActivityAndCloseThis(this,targetActivityClass,bundle);
+    }
+
+    /***************************************************************/
+
+    public void closeInputMethod(){
+        // 收起键盘
+        Utils.closeInputMethod(this);
     }
 }

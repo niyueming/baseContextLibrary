@@ -11,10 +11,16 @@
 
 package net.nym.basecontextlibrary.common;
 
+import android.app.Activity;
+import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
+import net.nym.basecontextlibrary.Utils;
 import net.nym.permissionlibrary.activity.NPermissionFragment;
 
 /**
@@ -23,7 +29,7 @@ import net.nym.permissionlibrary.activity.NPermissionFragment;
  * @time 15:38
  */
 
-public class NBaseFragment extends NPermissionFragment {
+public abstract class NBaseFragment extends NPermissionFragment {
 
     protected ViewGroup mContainer;
     @Override
@@ -48,6 +54,40 @@ public class NBaseFragment extends NPermissionFragment {
 
         View view = mContainer.findViewById(id);
         return view == null ? null : (T)view;
+    }
+
+    public abstract void toast(@NonNull String text);
+    public abstract void toast(@StringRes int stringId);
+
+    /********************** activity跳转 **********************************/
+    public void openActivity(Class<?> targetActivityClass) {
+        Utils.openActivity(this,targetActivityClass);
+    }
+
+    public void openActivity(Class<?> targetActivityClass,int requestCode) {
+        Utils.openActivity(this,targetActivityClass,requestCode);
+    }
+
+    public void openActivity(Class<?> targetActivityClass, Bundle bundle, Bundle options) {
+        Utils.openActivity(this,targetActivityClass,bundle,options);
+    }
+
+    public void openActivity(Class<?> targetActivityClass, Bundle bundle,int requestCode,Bundle options) {
+        Utils.openActivity(this,targetActivityClass,bundle,requestCode,options);
+    }
+
+    public void openActivityAndCloseThis(Class<?> targetActivityClass) {
+        Utils.openActivityAndCloseThis(this,targetActivityClass);
+    }
+
+    public void openActivityAndCloseThis(Class<?> targetActivityClass, Bundle bundle) {
+        Utils.openActivityAndCloseThis(this,targetActivityClass,bundle);
+    }
+    /***************************************************************/
+
+    public void closeInputMethod(){
+        // 收起键盘
+        Utils.closeInputMethod(this);
     }
     /**
      * 可见
