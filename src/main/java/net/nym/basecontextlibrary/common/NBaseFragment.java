@@ -59,6 +59,18 @@ public abstract class NBaseFragment extends NPermissionFragment {
     public abstract void toast(@NonNull String text);
     public abstract void toast(@StringRes int stringId);
 
+    public void showIndicator(){
+        if (NBaseActivity.class.isInstance(getActivity())){
+            ((NBaseActivity)getActivity()).showIndicator();
+        }
+    }
+
+    public void dismissIndicator(){
+        if (NBaseActivity.class.isInstance(getActivity())){
+            ((NBaseActivity)getActivity()).dismissIndicator();
+        }
+    }
+
     /********************** activity跳转 **********************************/
     public void openActivity(Class<?> targetActivityClass) {
         Utils.openActivity(this,targetActivityClass);
