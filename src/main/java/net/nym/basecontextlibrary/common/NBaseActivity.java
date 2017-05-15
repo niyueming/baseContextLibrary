@@ -12,11 +12,13 @@
 package net.nym.basecontextlibrary.common;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v13.app.ActivityCompat;
+import android.support.v4.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -84,12 +86,32 @@ public abstract class NBaseActivity extends NPermissionActivity implements View.
         Utils.openActivity(this,targetActivityClass,bundle,requestCode,options);
     }
 
+    @SafeVarargs
+    public final void openActivityWithTransition(Class<?> targetActivityClass, Bundle bundle, Pair<View, String>... pair){
+        Utils.openActivityWithTransition(this,targetActivityClass,bundle,pair);
+    }
+
+    @SafeVarargs
+    public final void openActivityWithTransition(Class<?> targetActivityClass, Bundle bundle, int requestCode, Pair<View, String>... pair){
+        Utils.openActivityWithTransition(this,targetActivityClass,bundle,requestCode,pair);
+    }
+
     public void openActivityAndCloseThis(Class<?> targetActivityClass) {
         Utils.openActivityAndCloseThis(this,targetActivityClass);
     }
 
     public void openActivityAndCloseThis(Class<?> targetActivityClass, Bundle bundle) {
         Utils.openActivityAndCloseThis(this,targetActivityClass,bundle);
+    }
+
+    @SafeVarargs
+    public final void openActivityWithTransitionAndCloseThis(Class<?> targetActivityClass, Bundle bundle, Pair<View, String>... pair){
+        Utils.openActivityWithTransitionAndCloseThis(this,targetActivityClass,bundle,pair);
+    }
+
+    @SafeVarargs
+    public final void openActivityWithTransitionAndCloseThis(Class<?> targetActivityClass, Bundle bundle, int requestCode, Pair<View, String>... pair){
+        Utils.openActivityWithTransitionAndCloseThis(this,targetActivityClass,bundle,requestCode,pair);
     }
 
     /***************************************************************/

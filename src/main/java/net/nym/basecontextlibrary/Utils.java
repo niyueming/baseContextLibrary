@@ -17,7 +17,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v13.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -106,16 +109,59 @@ public class Utils {
         finish(context);
     }
 
+    public static void openActivityWithTransition(Activity activity,Class<?> targetActivityClass,Bundle bundle,Pair<View,String>... pair){
+        Intent intent = new Intent(activity,targetActivityClass);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity
+                ,pair
+        );
+        ActivityCompat.startActivity(activity
+                ,intent
+                ,optionsCompat.toBundle());
+    }
+
+
+    public static void openActivityWithTransition(Activity activity,Class<?> targetActivityClass,Bundle bundle,int requestCode,Pair<View,String>... pair){
+        Intent intent = new Intent(activity,targetActivityClass);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity
+                ,pair
+        );
+        ActivityCompat.startActivityForResult(activity
+                ,intent
+                ,requestCode
+                ,optionsCompat.toBundle());
+    }
+
+    @SafeVarargs
+    public static void openActivityWithTransitionAndCloseThis(Activity activity, Class<?> targetActivityClass, Bundle bundle, Pair<View,String>... pair){
+        openActivityWithTransition(activity,targetActivityClass,bundle,pair);
+        finish(activity);
+    }
+
+ @SafeVarargs
+ public static void openActivityWithTransitionAndCloseThis(Activity activity, Class<?> targetActivityClass, Bundle bundle, int requestCode, Pair<View,String>... pair){
+        openActivityWithTransition(activity,targetActivityClass,bundle,requestCode,pair);
+        finish(activity);
+    }
+
     private static void finish(@NonNull Object context) {
         if (Activity.class.isInstance(context)) {
             Activity activity = (Activity) context;
-            activity.finish();
+//            activity.finish();
+            ActivityCompat.finishAfterTransition(activity);
         } else if (Fragment.class.isInstance(context)) {
             Fragment fragment = (Fragment) context;
-            fragment.getActivity().finish();
+//            fragment.getActivity().finish();
+            ActivityCompat.finishAfterTransition(fragment.getActivity());
         } else if (android.app.Fragment.class.isInstance(context)) {
             android.app.Fragment fragment = (android.app.Fragment) context;
-            fragment.getActivity().finish();
+//            fragment.getActivity().finish();
+            ActivityCompat.finishAfterTransition(fragment.getActivity());
         }
     }
 
