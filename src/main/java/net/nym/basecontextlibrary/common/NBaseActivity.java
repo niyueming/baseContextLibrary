@@ -39,7 +39,7 @@ import net.nym.permissionlibrary.activity.NPermissionActivity;
  * @time 15:36
  */
 
-public abstract class NBaseActivity extends NPermissionActivity implements View.OnClickListener{
+public abstract class NBaseActivity extends NPermissionActivity {
 
 
     public <T extends View> T findView(@IdRes int id) {
