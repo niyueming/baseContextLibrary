@@ -14,6 +14,8 @@ package net.nym.basecontextlibrary.common;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -41,6 +43,7 @@ import net.nym.permissionlibrary.activity.NPermissionActivity;
 
 public abstract class NBaseActivity extends NPermissionActivity {
 
+    private final Handler mHandler = new Handler();
 
     public <T extends View> T findView(@IdRes int id) {
         View view = (T)super.findViewById(id);
@@ -51,6 +54,14 @@ public abstract class NBaseActivity extends NPermissionActivity {
     public abstract void toast(@StringRes int stringId);
     public abstract void showIndicator();
     public abstract void dismissIndicator();
+
+    public final void runOnUiThreadDelayed(Runnable action,long delayMillis) {
+        if (Looper.myLooper() != Looper.getMainLooper()) {
+            mHandler.postDelayed(action,delayMillis);
+        } else {
+            action.run();
+        }
+    }
 
     @Override
     public void onBackPressed() {
