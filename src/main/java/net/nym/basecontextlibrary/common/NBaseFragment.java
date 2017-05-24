@@ -62,6 +62,9 @@ public abstract class NBaseFragment extends NPermissionFragment {
 
 
     public <T extends View> T findViewById(@IdRes int id){
+        if (getView() == null){
+            return null;
+        }
         View view = getView().findViewById(id);
         return view == null ? null : (T)view;
     }
