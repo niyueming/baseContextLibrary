@@ -11,7 +11,6 @@
 
 package net.nym.basecontextlibrary.common;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,8 +18,6 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 
 import net.nym.basecontextlibrary.Utils;
 import net.nym.permissionlibrary.activity.NPermissionFragment;
@@ -33,7 +30,6 @@ import net.nym.permissionlibrary.activity.NPermissionFragment;
 
 public abstract class NBaseFragment extends NPermissionFragment {
     private final Handler mHandler = new Handler();
-    protected ViewGroup mContainer;
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -66,11 +62,7 @@ public abstract class NBaseFragment extends NPermissionFragment {
 
 
     public <T extends View> T findViewById(@IdRes int id){
-        if (mContainer == null){
-            return null;
-        }
-
-        View view = mContainer.findViewById(id);
+        View view = getView().findViewById(id);
         return view == null ? null : (T)view;
     }
 
