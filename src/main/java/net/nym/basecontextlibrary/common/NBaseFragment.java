@@ -13,6 +13,8 @@ package net.nym.basecontextlibrary.common;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -30,7 +32,7 @@ import net.nym.permissionlibrary.activity.NPermissionFragment;
  */
 
 public abstract class NBaseFragment extends NPermissionFragment {
-
+    private final Handler mHandler = new Handler();
     protected ViewGroup mContainer;
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -43,6 +45,22 @@ public abstract class NBaseFragment extends NPermissionFragment {
                 onInvisible();
             }
 
+        }
+    }
+
+    public final void runOnUiThreadDelayed(Runnable action,long delayMillis) {
+        if (Looper.myLooper() != Looper.getMainLooper()) {
+            mHandler.postDelayed(action,delayMillis);
+        } else {
+            action.run();
+        }
+    }
+
+    public final void runOnUiThread(Runnable action) {
+        if (Looper.myLooper() != Looper.getMainLooper()) {
+            mHandler.post(action);
+        } else {
+            action.run();
         }
     }
 
