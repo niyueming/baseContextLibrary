@@ -45,11 +45,7 @@ public abstract class NBaseFragment extends NPermissionFragment {
     }
 
     public final void runOnUiThreadDelayed(Runnable action,long delayMillis) {
-        if (Looper.myLooper() != Looper.getMainLooper()) {
-            mHandler.postDelayed(action,delayMillis);
-        } else {
-            action.run();
-        }
+        mHandler.postDelayed(action,delayMillis);
     }
 
     public final void runOnUiThread(Runnable action) {

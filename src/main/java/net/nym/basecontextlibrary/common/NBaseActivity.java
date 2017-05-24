@@ -56,11 +56,8 @@ public abstract class NBaseActivity extends NPermissionActivity {
     public abstract void dismissIndicator();
 
     public final void runOnUiThreadDelayed(Runnable action,long delayMillis) {
-        if (Looper.myLooper() != Looper.getMainLooper()) {
-            mHandler.postDelayed(action,delayMillis);
-        } else {
-            action.run();
-        }
+        mHandler.postDelayed(action,delayMillis);
+
     }
 
     @Override
