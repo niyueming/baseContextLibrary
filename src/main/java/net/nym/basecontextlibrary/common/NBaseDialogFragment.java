@@ -13,12 +13,14 @@ package net.nym.basecontextlibrary.common;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 /**
  * @author niyueming
@@ -28,10 +30,16 @@ import android.view.ViewGroup;
 
 public class NBaseDialogFragment extends DialogFragment {
 
+    protected OnDialogListener mListener;
+
+    public void setOnDialogListener(OnDialogListener listener) {
+        this.mListener = listener;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);  //去掉对话框默认的title
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);  //去掉对话框默认的title
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -40,5 +48,18 @@ public class NBaseDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return super.onCreateDialog(savedInstanceState);
+    }
+
+
+    public <T extends View> T findViewById(@IdRes int id){
+        if (getView() == null){
+            return null;
+        }
+        View view = getView().findViewById(id);
+        return view == null ? null : (T)view;
+    }
+
+    public interface OnDialogListener{
+        void onCallback(Bundle data);
     }
 }
