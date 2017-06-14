@@ -29,6 +29,7 @@ import net.nym.permissionlibrary.activity.NPermissionFragment;
  */
 
 public abstract class NBaseFragment extends NPermissionFragment {
+    protected final static String TAG = NBaseFragment.class.getSimpleName();
     private final Handler mHandler = new Handler();
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

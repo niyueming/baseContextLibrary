@@ -42,6 +42,7 @@ import net.nym.permissionlibrary.activity.NPermissionActivity;
  */
 
 public abstract class NBaseActivity extends NPermissionActivity {
+    protected final static String TAG = NBaseActivity.class.getSimpleName();
 
     private final Handler mHandler = new Handler();
 
