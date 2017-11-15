@@ -178,6 +178,17 @@ public class Utils {
         }
     }
 
+    public static void showInputMethod(@NonNull Object context) {
+        Activity activity = getActivity(context);
+        if (activity != null){
+            View view = activity.getWindow().peekDecorView();// 用于判断虚拟软键盘是否是显示的
+            if (view != null) {
+                InputMethodManager inputmanger = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                inputmanger.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.SHOW_FORCED);
+            }
+        }
+    }
+
     @Nullable
     private static Activity getActivity(@NonNull Object context) {
         Activity activity = null;
