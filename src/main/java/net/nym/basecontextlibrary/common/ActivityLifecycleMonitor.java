@@ -55,7 +55,7 @@ public class ActivityLifecycleMonitor implements Application.ActivityLifecycleCa
         if (activityCount.get() == 0){
             //切到前台
             if (mOnForegroundListener != null){
-                mOnForegroundListener.onForeground();
+                mOnForegroundListener.onForeground(activity);
             }
         }
         activityCount.incrementAndGet();
@@ -77,7 +77,7 @@ public class ActivityLifecycleMonitor implements Application.ActivityLifecycleCa
         if (activityCount.get() == 0){
             //切到后台
             if (mOnForegroundListener != null){
-                mOnForegroundListener.onBackground();
+                mOnForegroundListener.onBackground(activity);
             }
         }
     }
@@ -93,7 +93,7 @@ public class ActivityLifecycleMonitor implements Application.ActivityLifecycleCa
     }
 
     interface OnForegroundListener{
-        void onForeground();
-        void onBackground();
+        void onForeground(Activity activity);
+        void onBackground(Activity activity);
     }
 }

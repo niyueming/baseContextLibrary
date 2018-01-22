@@ -11,6 +11,7 @@
 
 package net.nym.basecontextlibrary.common;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.res.Resources;
 
@@ -35,12 +36,12 @@ public class NBaseApplication extends Application implements ActivityLifecycleMo
     }
 
     @Override
-    public void onForeground() {
+    public void onForeground(Activity activity) {
         System.out.println("前台");
     }
 
     @Override
-    public void onBackground() {
+    public void onBackground(Activity activity) {
         System.out.println("后台");
 
     }
