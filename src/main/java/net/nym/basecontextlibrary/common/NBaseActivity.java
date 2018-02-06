@@ -47,7 +47,7 @@ public abstract class NBaseActivity extends NPermissionActivity {
     private final Handler mHandler = new Handler();
 
     public <T extends View> T findView(@IdRes int id) {
-        View view = (T)super.findViewById(id);
+        View view = getDelegate().findViewById(id);
         return view == null ? null : (T)view;
     }
 
